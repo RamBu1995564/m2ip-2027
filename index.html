@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+        content="M2IP 2027: Summer School on Mathematical Methods in Image Processing, Cohort 1: Image Segmentation. 10–20 May 2027, VIT Chennai.">
+  <meta name="theme-color" content="#102b4e">
+
+  <title>M2IP 2027 | Summer School | VIT Chennai</title>
+
+  <style>
+    :root {
+      --navy: #102b4e;
+      --navy-dark: #081a30;
+      --teal: #087e83;
+      --gold: #c69b3c;
+      --cream: #faf8f2;
+      --ink: #25364a;
+      --muted: #5c6875;
+      --line: #dce3e8;
+      --white: #fff;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+    }
+
+    a { color: var(--teal); }
+    img { max-width: 100%; }
+    button, input { font: inherit; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+
+    .container { width: min(1120px, 92%); margin-inline: auto; }
+    .skip-link {
+      position: absolute; top: -80px; left: 12px;
+      background: white; color: var(--navy); padding: 12px; z-index: 100;
+    }
+    .skip-link:focus { top: 12px; }
+
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: #fff; border-bottom: 1px solid var(--line);
+    }
+    .navigation {
+      min-height: 78px; display: flex; align-items: center;
+      justify-content: space-between; gap: 20px;
+    }
+    .brand { color: var(--navy); text-decoration: none; line-height: 1.2; }
+    .brand strong { font-size: 25px; letter-spacing: -.8px; }
+    .brand span { display: block; font-size: 11px; letter-spacing: 1.4px; margin-top: 5px; }
+    nav { display: flex; gap: 20px; align-items: center; }
+    nav a { text-decoration: none; color: var(--navy); font-size: 14px; font-weight: 700; }
+    nav a:hover { color: var(--teal); }
+    .menu-button {
+      display: none; padding: 8px 13px; background: white;
+      color: var(--navy); border: 1px solid var(--line); border-radius: 8px;
+    }
+
+    .hero {
+      padding: 78px 0 56px; color: white;
+      background:
+        radial-gradient(ellipse at 90% 20%, #15565d 0, transparent 45%),
+        linear-gradient(120deg, var(--navy-dark), var(--navy));
+    }
+    .hero-layout { display: grid; grid-template-columns: 1.4fr .8fr; gap: 50px; align-items: center; }
+    .eyebrow {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 2px; color: var(--teal); margin-bottom: 14px;
+    }
+    .hero .eyebrow { color: #f0cf85; }
+    .event-name { font-size: clamp(48px, 8vw, 84px); font-weight: 800; line-height: 1; margin-bottom: 18px; }
+    h1 { font-size: clamp(25px, 3.2vw, 38px); line-height: 1.25; margin: 0 0 22px; }
+    h2 {
+      color: var(--navy); font-size: clamp(27px, 3vw, 36px);
+      line-height: 1.25; margin: 0 0 18px;
+    }
+    h3 { color: var(--navy); font-size: 19px; margin: 0 0 10px; }
+    p { margin: 0 0 16px; }
+    .cohort {
+      display: inline-block; padding: 7px 14px; border: 1px solid #f0cf85;
+      color: #f0cf85; border-radius: 6px; margin-bottom: 20px; font-weight: 700;
+    }
+    .tagline { font-style: italic; color: #e0e8ee; }
+    .event-meta { color: #fff; font-weight: 700; margin: 22px 0; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .button {
+      display: inline-flex; justify-content: center; align-items: center;
+      padding: 12px 20px; border-radius: 8px; border: 1px solid transparent;
+      text-decoration: none; font-weight: 700; cursor: pointer;
+    }
+    .button-primary { background: var(--gold); color: #13233a; }
+    .button-secondary { border-color: #96a6b7; color: white; background: transparent; }
+    .button-teal { background: var(--teal); color: white; }
+    .button:hover { filter: brightness(1.07); }
+    .button[aria-disabled="true"] { opacity: .75; cursor: default; }
+    .hero-note { font-size: 13px; color: #d5e3ed; margin-top: 12px; }
+
+    .visual {
+      padding: 26px; border: 1px solid #ffffff30;
+      background: #ffffff08; border-radius: 24px;
+    }
+    .visual svg { width: 100%; height: auto; display: block; }
+    .visual figcaption { text-align: center; font-size: 13px; color: #dce9ec; margin-top: 16px; }
+
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      margin-top: 48px; border-top: 1px solid #ffffff30; padding-top: 26px; gap: 20px;
+    }
+    .stat strong { display: block; color: #f0cf85; font-size: 32px; }
+    .stat span { font-size: 14px; color: #e2e9ef; }
+
+    section { padding: 68px 0; }
+    .soft { background: var(--cream); }
+    .intro { max-width: 780px; color: var(--muted); margin-bottom: 28px; }
+    .grid { display: grid; gap: 22px; }
+    .two { grid-template-columns: repeat(2, 1fr); }
+    .three { grid-template-columns: repeat(3, 1fr); }
+    .card {
+      border: 1px solid var(--line); background: white;
+      border-radius: var(--radius); padding: 25px;
+    }
+    .card p:last-child { margin-bottom: 0; }
+    .number { color: var(--teal); font-weight: 800; font-size: 14px; margin-bottom: 10px; }
+    .hours {
+      display: inline-block; background: #e7f3f2; color: #08646a;
+      padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;
+      margin-bottom: 12px;
+    }
+    ul { padding-left: 21px; margin: 10px 0 0; }
+    li { margin-bottom: 9px; }
+    .note {
+      padding: 18px 22px; border-left: 4px solid var(--gold);
+      background: #fff5dd; border-radius: 0 10px 10px 0; margin-top: 24px;
+    }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { text-align: left; padding: 15px 18px; border-bottom: 1px solid var(--line); }
+    th { color: white; background: var(--navy); }
+    tr:last-child td { border-bottom: none; }
+    .date-column { white-space: nowrap; }
+    .placeholder {
+      min-height: 180px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      border: 1px dashed #aebdc9; background: #f7fafc; border-radius: 14px;
+      padding: 24px;
+    }
+    .placeholder strong { color: var(--navy); font-size: 19px; }
+    .placeholder span { color: var(--muted); font-size: 14px; }
+    .committee p { margin-bottom: 8px; }
+    .committee small { color: var(--muted); display: block; }
+    details { background: white; border-bottom: 1px solid var(--line); padding: 18px 0; }
+    summary { cursor: pointer; font-weight: 700; color: var(--navy); }
+    details p { margin: 12px 0 0; color: var(--muted); }
+    .contact a { overflow-wrap: anywhere; }
+    footer { padding: 28px 0; background: var(--navy-dark); color: #dce5ed; font-size: 13px; }
+    footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    footer a { color: #f0cf85; }
+
+    @media (max-width: 900px) {
+      nav { gap: 12px; }
+      nav a { font-size: 12px; }
+      .hero-layout { grid-template-columns: 1fr; }
+      .visual { max-width: 440px; margin: 0; }
+      .three { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 680px) {
+      .menu-button { display: block; }
+      .navigation { flex-wrap: wrap; padding: 15px 0; }
+      nav { display: none; width: 100%; flex-direction: column; align-items: stretch; gap: 0; }
+      nav.open { display: flex; }
+      nav a { padding: 12px 0; font-size: 15px; }
+      .hero { padding: 46px 0 36px; }
+      section { padding: 46px 0; }
+      .two, .three { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .card { padding: 21px; }
+      th, td { padding: 12px; font-size: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header>
+    <div class="container navigation">
+      <a class="brand" href="#home" aria-label="M2IP 2027 home">
+        <strong>M2IP <span style="display:inline;color:#087e83;font-size:25px">2027</span></strong>
+        <span>VIT CHENNAI</span>
+      </a>
+
+      <button class="menu-button" id="menuButton"
+              aria-expanded="false" aria-controls="navigation">
+        Menu
+      </button>
+
+      <nav id="navigation" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#syllabus">Syllabus</a>
+        <a href="#programme">Programme</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#committees">Committees</a>
+        <a href="#applications">Applications</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-layout">
+          <div>
+            <div class="eyebrow">Department of Mathematics · School of Advanced Sciences</div>
+            <div class="event-name">M2IP 2027</div>
+            <h1>Summer School on Mathematical Methods in Image Processing</h1>
+            <div class="cohort">Cohort 1: Image Segmentation</div>
+            <p class="tagline">Understand the mathematics. Test the method. Explain the result.</p>
+            <p class="event-meta">10–20 May 2027 &nbsp; | &nbsp; VIT Chennai &nbsp; | &nbsp; In person</p>
+
+            <div class="actions">
+              <a class="button button-primary application-button"
+                 href="#applications">Application details</a>
+              <a class="button button-secondary"
+                 href="assets/M2IP-2027-brochure.pdf"
+                 target="_blank" rel="noopener">Download brochure</a>
+            </div>
+            <p class="hero-note application-status">Applications open on 01 December 2026.</p>
+          </div>
+
+          <figure class="visual">
+            <svg viewBox="0 0 380 270" role="img"
+                 aria-labelledby="visualTitle visualDescription">
+              <title id="visualTitle">Illustration of image segmentation</title>
+              <desc id="visualDescription">
+                A square image divided into coloured regions with smooth boundaries.
+              </desc>
+              <defs>
+                <clipPath id="imageBoundary">
+                  <rect x="45" y="15" width="260" height="240" rx="12"/>
+                </clipPath>
+              </defs>
+              <g clip-path="url(#imageBoundary)">
+                <rect x="45" y="15" width="260" height="240" fill="#7352a3"/>
+                <path d="M180 15 H305 V145 Q245 165 205 108 Z" fill="#4daa7d"/>
+                <path d="M45 138 Q120 155 160 210 L185 255 H45 Z" fill="#25a8bb"/>
+                <path d="M305 135 V255 H165 Q198 180 238 155 Z" fill="#d8759a"/>
+                <path d="M173 65 C205 55 214 102 252 118
+                         C280 135 224 155 210 184
+                         C195 222 169 215 150 186
+                         C130 158 83 161 95 139
+                         C108 115 132 126 145 90
+                         C151 75 159 67 173 65 Z"
+                      fill="#edc357" stroke="white" stroke-width="5"/>
+              </g>
+              <rect x="45" y="15" width="260" height="240" rx="12"
+                    fill="none" stroke="#ffffffa0" stroke-width="2"/>
+              <path d="M20 255 V15 M20 255 H330" fill="none"
+                    stroke="#a6c9ce" stroke-width="1.5"/>
+            </svg>
+            <figcaption>Mathematical models. Meaningful regions.</figcaption>
+          </figure>
+        </div>
+
+        <div class="stats" aria-label="School highlights">
+          <div class="stat"><strong>40</strong><span>Participants</span></div>
+          <div class="stat"><strong>8</strong><span>Project mentors</span></div>
+          <div class="stat"><strong>27</strong><span>Lecture hours</span></div>
+          <div class="stat"><strong>10</strong><span>Teaching days</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="eyebrow">About the school</div>
+        <h2>Mathematics behind meaningful images</h2>
+        <p class="intro">
+          Image segmentation separates an image into regions that can be analysed
+          and interpreted. M2IP 2027 introduces early-career researchers to the
+          mathematical ideas behind these methods and the practical decisions
+          that influence their results.
+        </p>
+        <p class="intro">
+          Guided derivations, numerical exercises and mentored investigations
+          connect model assumptions with working algorithms. Participants study
+          a focused set of methods and examine when, why and how their results change.
+        </p>
+
+        <div class="grid two">
+          <article class="card">
+            <div class="number">01 · FORMULATE</div>
+            <h3>Connect mathematics with implementation</h3>
+            <p>Translate segmentation objectives and update equations into numerical experiments.</p>
+          </article>
+          <article class="card">
+            <div class="number">02 · INVESTIGATE</div>
+            <h3>Understand the behaviour of methods</h3>
+            <p>Examine the effects of assumptions, noise, initialisation and parameter choices.</p>
+          </article>
+          <article class="card">
+            <div class="number">03 · EVALUATE</div>
+            <h3>Conduct focused comparisons</h3>
+            <p>Use fair baselines, appropriate metrics and reproducible experimental settings.</p>
+          </article>
+          <article class="card">
+            <div class="number">04 · CONTINUE</div>
+            <h3>Develop a research direction</h3>
+            <p>Refine findings and project reports through a 30-day mentored follow-up.</p>
+          </article>
+        </div>
+
+        <div class="note">
+          <strong>Academic home:</strong> Department of Mathematics,
+          School of Advanced Sciences, Vellore Institute of Technology,
+          Chennai – 600 127.
+        </div>
+      </div>
+    </section>
+
+    <section id="syllabus" class="soft">
+      <div class="container">
+        <div class="eyebrow">27 lecture hours · Nine teaching mornings</div>
+        <h2>Syllabus</h2>
+        <p class="intro">A focused progression from mathematical foundations to reproducible segmentation experiments.</p>
+
+        <div class="grid three">
+          <article class="card">
+            <span class="hours">Module 01 · 3 hours</span>
+            <h3>Mathematical Foundations</h3>
+            <p>Discrete images, sampling, quantisation, pixel neighbourhoods,
+              convolution, smoothing and gradients. Segmentation as a partition
+              of the image domain.</p>
+          </article>
+          <article class="card">
+            <span class="hours">Module 02 · 3 hours</span>
+            <h3>Classical Segmentation</h3>
+            <p>Global thresholding, Otsu’s criterion, region growing,
+              reference masks and baseline evaluation.</p>
+          </article>
+          <article class="card">
+            <span class="hours">Module 03 · 6 hours</span>
+            <h3>Clustering and Optimisation</h3>
+            <p>K-means objectives and alternating updates. Initialisation and
+              convergence. Fuzzy C-means, constrained optimisation, membership
+              updates and the fuzzifier.</p>
+          </article>
+          <article class="card">
+            <span class="hours">Module 04 · 6 hours</span>
+            <h3>Spatial Models and Regularisation</h3>
+            <p>Intensity fidelity, neighbourhood penalties, two-label energies
+              and single-pixel updates. Effects on boundaries and small regions.</p>
+          </article>
+          <article class="card">
+            <span class="hours">Module 05 · 6 hours</span>
+            <h3>Experimental Design and Validation</h3>
+            <p>Fair baselines, noise and parameter sensitivity, Dice, IoU,
+              boundary error, tuning and testing, repeated trials and variability.</p>
+          </article>
+          <article class="card">
+            <span class="hours">Module 06 · 3 hours</span>
+            <h3>Reproducible Research</h3>
+            <p>Dataset provenance, code organisation, settings and random seeds.
+              Mathematical exposition, interpretation, limitations and continuation.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="programme">
+      <div class="container">
+        <div class="eyebrow">Learn · Implement · Investigate</div>
+        <h2>Programme</h2>
+        <p class="intro">Daily schedule for 10–15 and 17–19 May 2027. All times are in IST.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Time</th><th scope="col">Activity</th></tr></thead>
+            <tbody>
+              <tr><td class="date-column">09:30–11:00</td><td>Lecture I</td></tr>
+              <tr><td>11:00–11:15</td><td>Tea break</td></tr>
+              <tr><td>11:15–12:45</td><td>Lecture II</td></tr>
+              <tr><td>12:45–13:45</td><td>Lunch</td></tr>
+              <tr><td>13:45–14:45</td><td>Parallel team mentoring</td></tr>
+              <tr><td>14:45–15:00</td><td>Tea break</td></tr>
+              <tr><td>15:00–16:30</td><td>Guided project work</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid two" style="margin-top:24px">
+          <div class="card">
+            <h3>16 May · Sunday</h3>
+            <p>An optional local excursion may be arranged.
+              Details and applicable charges will be shared with selected participants.</p>
+          </div>
+          <div class="card">
+            <h3>20 May · Final day</h3>
+            <p>Project presentations, expert feedback and valedictory. No lectures.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="speakers" class="soft">
+      <div class="container">
+        <div class="eyebrow">Academic guidance</div>
+        <h2>Invited Speakers &amp; Mentors</h2>
+        <p class="intro">
+          Speaker profiles, lecture topics and mentor assignments will be
+          published after confirmation.
+        </p>
+
+        <!-- Replace these placeholders with confirmed profiles and photographs. -->
+        <div class="grid two">
+          <div class="placeholder">
+            <strong>Invited Speakers</strong>
+            <span>Profiles to be announced</span>
+          </div>
+          <div class="placeholder">
+            <strong>Project Mentors</strong>
+            <span>Profiles and assignments to be announced</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="committees">
+      <div class="container">
+        <div class="eyebrow">Organising team</div>
+        <h2>Committees</h2>
+
+        <div class="grid three committee">
+          <article class="card">
+            <h3>Chief Patron</h3>
+            <p><strong>Dr. G. Viswanathan</strong><small>Founder &amp; Chancellor, VIT</small></p>
+          </article>
+          <article class="card">
+            <h3>Patrons</h3>
+            <p>Dr. Sekar Viswanathan<small>Vice President, VIT</small></p>
+            <p>Dr. Sankar Viswanathan<small>Vice President, VIT</small></p>
+            <p>Dr. G. V. Selvam<small>Vice President, VIT</small></p>
+            <p>Dr. V. S. Kanchana Bhaaskaran<small>Vice Chancellor, VIT</small></p>
+            <p>Dr. T. Thyagarajan<small>Pro-Vice Chancellor, VIT Chennai</small></p>
+            <p>Dr. P. K. Manoharan<small>Additional Registrar, VIT Chennai</small></p>
+          </article>
+          <article class="card">
+            <h3>Convenor</h3>
+            <p><strong>Dr. N. Ramesh Babu</strong><small>Assistant Professor, VIT Chennai</small></p>
+            <h3 style="margin-top:22px">Co-convenors</h3>
+            <p>Dr. Lakshmanan Shanmugam</p>
+            <p>Dr. N. Padmaja</p>
+            <p>Dr. R. Sriraman</p>
+          </article>
+          <article class="card">
+            <h3>Advisory Committee</h3>
+            <p>Dr. G. Vinitha<small>Professor and Dean, School of Advanced Sciences</small></p>
+            <p>Dr. A. Manivannan<small>Associate Professor and Head, Department of Mathematics</small></p>
+          </article>
+          <article class="card">
+            <h3>Scientific Committee</h3>
+            <p>Dr. Mini Ghosh</p>
+            <p>Dr. Kalyani Desikan</p>
+            <p>Dr. Prabhakar V</p>
+            <p>Dr. Kaliyappan M</p>
+          </article>
+          <article class="card">
+            <h3>Organising Members</h3>
+            <p>Faculty Members<br>Department of Mathematics<br>
+              School of Advanced Sciences<br>VIT Chennai</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="applications" class="soft">
+      <div class="container">
+        <div class="eyebrow">Applications &amp; participation</div>
+        <h2>Begin your application</h2>
+
+        <div class="grid two">
+          <article class="card">
+            <h3>Who can apply?</h3>
+            <ul>
+              <li>Postgraduate students, research scholars, postdoctoral researchers
+                and early-career faculty in mathematics or related disciplines.</li>
+              <li>Basic knowledge of linear algebra, calculus and probability.</li>
+              <li>Ability to write simple Python or MATLAB programs.</li>
+              <li>Prior research experience in image processing is not required.</li>
+              <li>Commitment to the full school and the 30-day project follow-up.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Selection criteria</h3>
+            <ul>
+              <li>Academic merit and a statement of interest of <strong>150–200 words</strong>.</li>
+              <li>The statement should cover academic background, research interests,
+                reasons for attending and expected benefits.</li>
+              <li>Preference for postgraduate students, research scholars and
+                early-career researchers below 35 years of age.</li>
+              <li>Among equally suitable applicants, limited access to similar training
+                and institutional and geographical diversity will be considered.</li>
+              <li><strong>40 participants</strong> will be selected. A reserve list will be maintained.</li>
+            </ul>
+          </article>
+        </div>
+
+        <h3 style="margin-top:32px">Important dates</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Activity</th><th scope="col">Date</th></tr></thead>
+            <tbody>
+              <tr><td>Applications open</td><td class="date-column">01 December 2026</td></tr>
+              <tr><td>Application deadline</td><td>30 December 2026</td></tr>
+              <tr><td>Selection list announced</td><td>03 January 2027</td></tr>
+              <tr><td>Registration and fee payment deadline</td><td>15 March 2027</td></tr>
+              <tr><td>Summer School</td><td>10–20 May 2027</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="note">
+          <strong>No payment is required at the application stage.</strong>
+          Selected candidates will receive registration instructions by email.
+        </div>
+
+        <div class="actions">
+          <a class="button button-teal application-button"
+             href="#applications">Application details</a>
+        </div>
+        <p class="application-status" style="margin-top:12px">
+          Applications open on 01 December 2026.
+        </p>
+        <noscript>
+          <p>Please contact the convenor for the application link.</p>
+        </noscript>
+      </div>
+    </section>
+
+    <section id="support">
+      <div class="container">
+        <div class="eyebrow">Plan your participation</div>
+        <h2>Fees, Travel &amp; Accommodation</h2>
+        <div class="grid three">
+          <article class="card">
+            <h3>Registration fee</h3>
+            <p style="font-size:32px;font-weight:800;color:var(--teal)">₹2,000</p>
+            <p>Payable only by selected candidates.</p>
+            <p>At least 90% attendance and completion of prescribed assessments
+              are required for a fee refund, subject to funding availability.</p>
+          </article>
+          <article class="card">
+            <h3>Travel support</h3>
+            <p>Subject to funding availability, approved limits and submission
+              of valid travel documents.</p>
+            <p>Refund conditions and travel-support limits will be communicated
+              before fee payment.</p>
+          </article>
+          <article class="card">
+            <h3>Accommodation</h3>
+            <p>Availability and applicable charges will be communicated in the selection notice.</p>
+            <p>Accommodation may be provided free of charge, subject to funding availability.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="outcomes" class="soft">
+      <div class="container">
+        <div class="eyebrow">Beyond the classroom</div>
+        <h2>Research Outcomes &amp; Awards</h2>
+
+        <div class="grid two">
+          <article class="card">
+            <h3>Expected project outputs</h3>
+            <ul>
+              <li>A precise problem statement and mathematical formulation.</li>
+              <li>Documented implementation and reproducible settings.</li>
+              <li>Comparative results with suitable evaluation metrics.</li>
+              <li>Analysis of failure cases and limitations.</li>
+              <li>A realistic research continuation plan.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>30-day follow-up</h3>
+            <p><strong>Within 15 days:</strong> Submit interim results for mentor feedback.</p>
+            <p><strong>Within 30 days:</strong> Submit the refined project report and code.</p>
+            <p>Carefully verified negative findings are valid outcomes.</p>
+          </article>
+          <article class="card">
+            <h3>Best Project Presentation Award</h3>
+            <p>Presented for an outstanding final project presentation.</p>
+          </article>
+          <article class="card">
+            <h3>Best Research Project Awards</h3>
+            <p>Presented to three outstanding participants.</p>
+            <p>Detailed assessment criteria will be announced before the school.</p>
+          </article>
+        </div>
+
+        <div class="note">
+          Selected reports may be developed into book chapters after further
+          revision. Publication depends on editorial review and publisher acceptance.
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="eyebrow">Useful information</div>
+        <h2>Frequently Asked Questions</h2>
+
+        <details>
+          <summary>Do I need prior research experience in image processing?</summary>
+          <p>No. The school welcomes beginners with the stated mathematical and programming background.</p>
+        </details>
+        <details>
+          <summary>Should I pay when submitting my application?</summary>
+          <p>No. Only selected candidates pay the ₹2,000 registration fee after receiving instructions.</p>
+        </details>
+        <details>
+          <summary>Are the fee refund and travel support guaranteed?</summary>
+          <p>No. Both depend on funding availability and the communicated conditions.
+            Fee-refund eligibility also requires at least 90% attendance and completion of assessments.</p>
+        </details>
+        <details>
+          <summary>Will accommodation be available?</summary>
+          <p>Availability and charges will be included in the selection notice.
+            Free accommodation depends on funding availability.</p>
+        </details>
+        <details>
+          <summary>Is project work required after the school?</summary>
+          <p>Yes. Participants should commit to the 30-day follow-up and final report submission.</p>
+        </details>
+        <details>
+          <summary>Is publication guaranteed?</summary>
+          <p>No. Selected work may be considered after revision and editorial review,
+            subject to publisher acceptance.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="contact" class="soft">
+      <div class="container">
+        <div class="eyebrow">Get in touch</div>
+        <h2>Contact &amp; Location</h2>
+
+        <div class="grid two contact">
+          <article class="card">
+            <h3>Dr. N. Ramesh Babu</h3>
+            <p>Convenor, M2IP 2027<br>
+              Department of Mathematics<br>
+              School of Advanced Sciences<br>
+              VIT Chennai – 600 127</p>
+            <p><a href="mailto:n.rameshbabu@vit.ac.in">n.rameshbabu@vit.ac.in</a><br>
+              <a href="tel:+918778097050">+91 8778097050</a></p>
+          </article>
+
+          <article class="card">
+            <h3>Co-convenors</h3>
+            <p><strong>Dr. Lakshmanan Shanmugam</strong><br>
+              <a href="mailto:lakshmanan.s@vit.ac.in">lakshmanan.s@vit.ac.in</a></p>
+            <p><strong>Dr. N. Padmaja</strong><br>
+              <a href="mailto:padmaja.n@vit.ac.in">padmaja.n@vit.ac.in</a></p>
+            <p><strong>Dr. R. Sriraman</strong><br>
+              <a href="mailto:sriraman.r@vit.ac.in">sriraman.r@vit.ac.in</a></p>
+          </article>
+        </div>
+
+        <div class="actions">
+          <a class="button button-teal"
+             href="https://www.google.com/maps/search/?api=1&amp;query=VIT+Chennai"
+             target="_blank" rel="noopener">View VIT Chennai on Google Maps</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2027 M2IP · Department of Mathematics · VIT Chennai</span>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    /*
+      SETUP
+      1. Replace the empty APPLICATION_URL with your Google Form link.
+      2. Save the brochure as assets/M2IP-2027-brochure.pdf.
+      3. Replace speaker placeholders only after confirmation.
+    */
+
+    const APPLICATION_URL = "";
+
+    // Application window uses Indian Standard Time.
+    const APPLICATION_OPENS = new Date("2026-12-01T00:00:00+05:30");
+    const APPLICATION_CLOSES = new Date("2026-12-31T00:00:00+05:30");
+
+    const menuButton = document.getElementById("menuButton");
+    const navigation = document.getElementById("navigation");
+
+    menuButton.addEventListener("click", () => {
+      const expanded = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!expanded));
+      navigation.classList.toggle("open", !expanded);
+    });
+
+    navigation.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navigation.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" &&
+          menuButton.getAttribute("aria-expanded") === "true") {
+        navigation.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.focus();
+      }
+    });
+
+    function applicationLinkIsValid(value) {
+      try {
+        return new URL(value).protocol === "https:";
+      } catch {
+        return false;
+      }
+    }
+
+    function updateApplicationStatus() {
+      const now = new Date();
+      let label;
+      let message;
+      let enabled = false;
+
+      if (now < APPLICATION_OPENS) {
+        label = "Applications open 01 December";
+        message = "Applications open on 01 December 2026. No payment is required to apply.";
+      } else if (now >= APPLICATION_CLOSES) {
+        label = "Applications closed";
+        message = "The application window has closed. Please contact the convenor for enquiries.";
+      } else if (applicationLinkIsValid(APPLICATION_URL)) {
+        label = "Apply Now";
+        message = "Apply by 30 December 2026. No payment is required at this stage.";
+        enabled = true;
+      } else {
+        label = "Application link to be announced";
+        message = "The application link will be published here. Please contact the convenor for assistance.";
+      }
+
+      document.querySelectorAll(".application-button").forEach(button => {
+        button.textContent = label;
+        button.setAttribute("aria-disabled", String(!enabled));
+
+        if (enabled) {
+          button.href = APPLICATION_URL;
+          button.target = "_blank";
+          button.rel = "noopener";
+        } else {
+          button.removeAttribute("href");
+          button.removeAttribute("target");
+          button.removeAttribute("rel");
+        }
+      });
+
+      document.querySelectorAll(".application-status").forEach(element => {
+        element.textContent = message;
+      });
+    }
+
+    updateApplicationStatus();
+    setInterval(updateApplicationStatus, 60000);
+  </script>
+</body>
+</html>
